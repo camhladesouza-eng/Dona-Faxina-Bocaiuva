@@ -1,0 +1,8 @@
+{
+  "name": "dona-faxina",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Site de agendamento Dona Faxina",
+  "engines": {"node": ">=18"},
+  "dependencies": {}
+}
