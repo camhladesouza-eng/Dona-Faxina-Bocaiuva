@@ -1,0 +1,1697 @@
+
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#022C63">
+<title>Área do Cliente | Dona Faxina</title>
+
+<style>
+:root {
+  --azul: #022C63;
+  --turquesa: #01B7AB;
+  --laranja: #FE9402;
+  --branco: #FFFFFF;
+  --fundo: #F3F7FB;
+  --texto: #25364A;
+  --cinza: #718096;
+  --borda: #E1E8F0;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background: var(--fundo);
+  color: var(--texto);
+}
+
+button, input, select, textarea {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* LOGIN */
+
+.auth-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #022C63, #07528C);
+}
+
+.auth-card {
+  background: white;
+  width: 100%;
+  max-width: 440px;
+  padding: 35px;
+  border-radius: 20px;
+  box-shadow: 0 15px 45px #00152e55;
+}
+
+.logo {
+  text-align: center;
+  color: var(--azul);
+  font-size: 28px;
+  font-weight: 800;
+  margin-bottom: 10px;
+}
+
+.logo span {
+  color: var(--turquesa);
+}
+
+.auth-subtitle {
+  text-align: center;
+  color: var(--cinza);
+  margin-bottom: 25px;
+}
+
+.auth-tabs {
+  display: flex;
+  background: #EDF3F8;
+  padding: 5px;
+  border-radius: 10px;
+  margin-bottom: 22px;
+}
+
+.auth-tabs button {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--azul);
+}
+
+.auth-tabs button.active {
+  background: var(--azul);
+  color: white;
+}
+
+.field {
+  margin-bottom: 16px;
+}
+
+.field label {
+  display: block;
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 7px;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  padding: 13px;
+  border: 1px solid var(--borda);
+  border-radius: 9px;
+  outline: none;
+  background: white;
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  border-color: var(--turquesa);
+}
+
+.primary-btn {
+  width: 100%;
+  padding: 14px;
+  border-radius: 9px;
+  background: var(--turquesa);
+  color: white;
+  font-weight: bold;
+  transition: .2s;
+}
+
+.primary-btn:hover {
+  background: #009B91;
+}
+
+.text-link {
+  display: block;
+  text-align: center;
+  margin-top: 17px;
+  color: var(--azul);
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* PAINEL */
+
+.app {
+  display: flex;
+  min-height: 100vh;
+}
+
+.sidebar {
+  width: 250px;
+  background: var(--azul);
+  color: white;
+  padding: 25px 15px;
+  flex-shrink: 0;
+}
+
+.sidebar-logo {
+  text-align: center;
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 35px;
+}
+
+.sidebar-logo span {
+  color: var(--turquesa);
+}
+
+.menu-btn {
+  display: block;
+  width: 100%;
+  padding: 14px;
+  margin-bottom: 7px;
+  text-align: left;
+  border-radius: 9px;
+  color: white;
+  background: transparent;
+  font-size: 14px;
+}
+
+.menu-btn:hover,
+.menu-btn.active {
+  background: #FFFFFF20;
+}
+
+.logout {
+  margin-top: 30px;
+  color: #FFD2D2;
+}
+
+.main {
+  flex: 1;
+  min-width: 0;
+  padding: 28px;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 28px;
+}
+
+.topbar h1 {
+  color: var(--azul);
+  font-size: 25px;
+}
+
+.profile {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+}
+
+.avatar {
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  color: white;
+  background: var(--turquesa);
+}
+
+/* CONTEÚDO */
+
+.page {
+  display: none;
+}
+
+.page.active {
+  display: block;
+}
+
+.welcome {
+  background: linear-gradient(110deg, #022C63, #087C91);
+  padding: 30px;
+  border-radius: 16px;
+  color: white;
+  margin-bottom: 24px;
+}
+
+.welcome h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.welcome p {
+  opacity: .9;
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 18px;
+  margin-bottom: 25px;
+}
+
+.stat-card,
+.card {
+  background: white;
+  padding: 22px;
+  border-radius: 14px;
+  border: 1px solid var(--borda);
+}
+
+.stat-card h3 {
+  font-size: 27px;
+  color: var(--azul);
+  margin-bottom: 5px;
+}
+
+.stat-card p {
+  color: var(--cinza);
+  font-size: 13px;
+}
+
+.section-title {
+  color: var(--azul);
+  margin-bottom: 17px;
+  font-size: 20px;
+}
+
+.card {
+  margin-bottom: 18px;
+}
+
+.card h3 {
+  color: var(--azul);
+  margin-bottom: 17px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0 15px;
+}
+
+.full {
+  grid-column: 1 / -1;
+}
+
+.service-option {
+  border: 1px solid var(--borda);
+  border-radius: 10px;
+  padding: 15px;
+  margin-bottom: 10px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.service-option input {
+  accent-color: var(--turquesa);
+}
+
+.badge {
+  display: inline-block;
+  padding: 6px 10px;
+  border-radius: 20px;
+  background: #E1F8F5;
+  color: #008E83;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.orange {
+  background: #FFF0DB;
+  color: #B56A00;
+}
+
+.danger {
+  background: #FFE8E8;
+  color: #B52E2E;
+}
+
+.table-wrap {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 480px;
+}
+
+th, td {
+  padding: 13px;
+  text-align: left;
+  border-bottom: 1px solid var(--borda);
+  font-size: 14px;
+}
+
+th {
+  color: var(--azul);
+  background: #F5F8FC;
+}
+
+.total {
+  font-size: 25px;
+  color: var(--turquesa);
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.photo-preview {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.photo-preview img {
+  width: 100px;
+  height: 100px;
+  object-fit: cover;
+  border-radius: 9px;
+}
+
+.stars {
+  display: flex;
+  gap: 8px;
+  font-size: 30px;
+  color: #D5D5D5;
+  margin: 12px 0;
+}
+
+.stars span {
+  cursor: pointer;
+}
+
+.stars span.selected {
+  color: var(--laranja);
+}
+
+.whatsapp {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 58px;
+  height: 58px;
+  background: #20C76A;
+  color: white;
+  border-radius: 50%;
+  font-size: 27px;
+  box-shadow: 0 4px 15px #0003;
+  z-index: 10;
+}
+
+.empty {
+  text-align: center;
+  padding: 30px;
+  color: var(--cinza);
+}
+
+.notice {
+  background: #FFF4E4;
+  border-left: 4px solid var(--laranja);
+  padding: 13px;
+  border-radius: 6px;
+  margin-bottom: 18px;
+  font-size: 13px;
+}
+
+@media(max-width: 850px) {
+  .app {
+    display: block;
+  }
+
+  .sidebar {
+    width: 100%;
+    padding: 12px;
+  }
+
+  .sidebar-logo {
+    margin: 5px 0 12px;
+  }
+
+  .menu {
+    display: flex;
+    overflow-x: auto;
+    gap: 5px;
+  }
+
+  .menu-btn {
+    width: auto;
+    white-space: nowrap;
+    margin: 0;
+  }
+
+  .logout {
+    margin-top: 0;
+  }
+
+  .main {
+    padding: 18px;
+  }
+}
+
+@media(max-width: 550px) {
+  .stats,
+  .grid-2,
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .full {
+    grid-column: auto;
+  }
+
+  .topbar h1 {
+    font-size: 20px;
+  }
+
+  .welcome {
+    padding: 22px;
+  }
+
+  .auth-card {
+    padding: 24px;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<!-- ACESSO -->
+
+<section id="authScreen" class="auth-screen">
+  <div class="auth-card">
+
+    <div class="logo">Dona <span>Faxina</span></div>
+    <p class="auth-subtitle">Sua limpeza, do seu jeito!</p>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="active" onclick="showAuth('login')">Entrar</button>
+      <button id="registerTab" onclick="showAuth('register')">Cadastrar</button>
+    </div>
+
+    <form id="loginForm">
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="loginEmail" required>
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="loginPassword" required>
+      </div>
+
+      <button class="primary-btn">Entrar na minha conta</button>
+
+      <span class="text-link" onclick="showAuth('recover')">
+        Esqueci minha senha
+      </span>
+    </form>
+
+    <form id="registerForm" class="hidden">
+      <div class="field">
+        <label>Nome completo</label>
+        <input type="text" id="regName" required>
+      </div>
+
+      <div class="field">
+        <label>CPF</label>
+        <input type="text" id="regCpf" placeholder="000.000.000-00" required>
+      </div>
+
+      <div class="field">
+        <label>Telefone / WhatsApp</label>
+        <input type="tel" id="regPhone" required>
+      </div>
+
+      <div class="field">
+        <label>E-mail</label>
+        <input type="email" id="regEmail" required>
+      </div>
+
+      <div class="field">
+        <label>Senha</label>
+        <input type="password" id="regPassword" minlength="6" required>
+      </div>
+
+      <button class="primary-btn">Criar minha conta</button>
+    </form>
+
+    <form id="recoverForm" class="hidden">
+      <div class="field">
+        <label>Digite seu e-mail cadastrado</label>
+        <input type="email" id="recoverEmail" required>
+      </div>
+
+      <button class="primary-btn">Recuperar senha</button>
+
+      <span class="text-link" onclick="showAuth('login')">
+        Voltar para o login
+      </span>
+    </form>
+
+  </div>
+</section>
+
+<!-- SISTEMA DO CLIENTE -->
+
+<div id="app" class="app hidden">
+
+  <aside class="sidebar">
+
+    <div class="sidebar-logo">Dona <span>Faxina</span></div>
+
+    <nav class="menu">
+
+      <button class="menu-btn active" onclick="navigate('home',this)">🏠 Início</button>
+
+      <button class="menu-btn" onclick="navigate('request',this)">🧹 Solicitar serviço</button>
+
+      <button class="menu-btn" onclick="navigate('quotes',this)">💰 Orçamentos</button>
+
+      <button class="menu-btn" onclick="navigate('history',this)">📋 Histórico</button>
+
+      <button class="menu-btn" onclick="navigate('photos',this)">📸 Minhas fotos</button>
+
+      <button class="menu-btn" onclick="navigate('payment',this)">💳 Pagamentos</button>
+
+      <button class="menu-btn" onclick="navigate('reviews',this)">⭐ Avaliações</button>
+
+      <button class="menu-btn" onclick="navigate('profile',this)">👤 Meu cadastro</button>
+
+      <button class="menu-btn logout" onclick="logout()">↩ Sair da conta</button>
+
+    </nav>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <h1 id="pageTitle">Início</h1>
+
+      <div class="profile">
+        <div class="avatar" id="avatar">C</div>
+        <span id="customerName">Cliente</span>
+      </div>
+    </header>
+
+    <!-- INÍCIO -->
+
+    <section id="home" class="page active">
+
+      <div class="welcome">
+        <h2>Olá, <span id="welcomeName">Cliente</span>! 👋</h2>
+        <p>Bem-vindo(a) à sua Área do Cliente Dona Faxina.</p>
+        <p>Cuide da sua casa enquanto nós cuidamos da limpeza!</p>
+      </div>
+
+      <div class="stats">
+
+        <div class="stat-card">
+          <h3 id="totalRequests">0</h3>
+          <p>Solicitações</p>
+        </div>
+
+        <div class="stat-card">
+          <h3 id="totalQuotes">0</h3>
+          <p>Orçamentos</p>
+        </div>
+
+        <div class="stat-card">
+          <h3 id="totalHistory">0</h3>
+          <p>Serviços realizados</p>
+        </div>
+
+      </div>
+
+      <h2 class="section-title">Acesso rápido</h2>
+
+      <div class="grid-2">
+
+        <div class="card">
+          <h3>🧹 Precisa de uma faxina?</h3>
+          <p style="margin-bottom:15px">Solicite um serviço de limpeza.</p>
+          <button class="primary-btn" onclick="navigate('request')">Solicitar agora</button>
+        </div>
+
+        <div class="card">
+          <h3>💰 Seus orçamentos</h3>
+          <p style="margin-bottom:15px">Consulte suas propostas recebidas.</p>
+          <button class="primary-btn" onclick="navigate('quotes')">Consultar orçamentos</button>
+        </div>
+
+      </div>
+
+      <div class="card">
+        <h3>Últimas solicitações</h3>
+        <div id="recentRequests" class="empty">Nenhuma solicitação realizada.</div>
+      </div>
+
+    </section>
+
+    <!-- SOLICITAR SERVIÇO -->
+
+    <section id="request" class="page">
+
+      <div class="card">
+        <h3>Nova solicitação de serviço</h3>
+
+        <div class="notice">
+          Preencha os dados abaixo para solicitar seu orçamento.
+          Os valores apresentados são apenas estimativas demonstrativas.
+        </div>
+
+        <form id="requestForm">
+
+          <div class="field">
+            <label>Tipo de serviço</label>
+            <select id="serviceType" required>
+              <option value="">Selecione</option>
+              <option>Faxina residencial</option>
+              <option>Limpeza pesada</option>
+              <option>Limpeza pós-obra</option>
+              <option>Limpeza comercial</option>
+              <option>Limpeza de apartamento</option>
+              <option>Limpeza de mudança</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Tamanho do imóvel</label>
+            <select id="propertySize" required>
+              <option value="">Selecione</option>
+              <option value="80">Pequeno</option>
+              <option value="130">Médio</option>
+              <option value="200">Grande</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Quantidade de quartos</label>
+            <select id="bedrooms">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4 ou mais</option>
+            </select>
+          </div>
+
+          <div class="field">
+            <label>Quantidade de banheiros</label>
+            <select id="bathrooms">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4 ou mais</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Serviços adicionais</label>
+
+            <label class="service-option">
+              <input type="checkbox" class="extra" value="30">
+              Limpeza de geladeira (+ R$ 30)
+            </label>
+
+            <label class="service-option">
+              <input type="checkbox" class="extra" value="25">
+              Limpeza de forno (+ R$ 25)
+            </label>
+
+            <label class="service-option">
+              <input type="checkbox" class="extra" value="35">
+              Limpeza de janelas (+ R$ 35)
+            </label>
+
+            <label class="service-option">
+              <input type="checkbox" class="extra" value="40">
+              Organização de armários (+ R$ 40)
+            </label>
+          </div>
+
+          <div class="field">
+            <label>Data desejada</label>
+            <input type="date" id="serviceDate" required>
+          </div>
+
+          <div class="field">
+            <label>Horário desejado</label>
+            <input type="time" id="serviceTime" required>
+          </div>
+
+          <div class="field">
+            <label>Tempo estimado</label>
+            <select id="duration">
+              <option>2 horas</option>
+              <option>4 horas</option>
+              <option>6 horas</option>
+              <option>8 horas</option>
+            </select>
+          </div>
+
+          <div class="field full">
+            <label>Endereço completo</label>
+            <input type="text" id="address" placeholder="Rua, número e complemento" required>
+          </div>
+
+          <div class="field">
+            <label>Bairro</label>
+            <input type="text" id="neighborhood" required>
+          </div>
+
+          <div class="field">
+            <label>Cidade</label>
+            <input type="text" id="city" required>
+          </div>
+
+          <div class="field full">
+            <label>Descreva o que precisa</label>
+            <textarea id="description" rows="4" placeholder="Conte mais detalhes sobre o serviço..."></textarea>
+          </div>
+
+          <div class="field full">
+            <label>Envie fotos do ambiente</label>
+            <input type="file" id="requestPhotos" accept="image/*" multiple>
+            <div class="photo-preview" id="requestPreview"></div>
+          </div>
+
+          <div class="card">
+            <h3>Estimativa de orçamento</h3>
+            <div class="total" id="estimate">R$ 0,00</div>
+            <p style="font-size:13px;color:#718096">
+              Estimativa ilustrativa. O preço final dependerá da avaliação do profissional.
+            </p>
+          </div>
+
+          <button type="button" class="primary-btn" onclick="calculateEstimate()">Calcular orçamento</button>
+
+          <br><br>
+
+          <button type="submit" class="primary-btn">Enviar solicitação</button>
+
+        </form>
+      </div>
+
+    </section>
+
+    <!-- ORÇAMENTOS -->
+
+    <section id="quotes" class="page">
+
+      <div class="card">
+        <h3>Meus orçamentos</h3>
+        <div id="quotesList" class="empty">Nenhum orçamento disponível.</div>
+      </div>
+
+    </section>
+
+    <!-- HISTÓRICO -->
+
+    <section id="history" class="page">
+
+      <div class="card">
+        <h3>Histórico de serviços</h3>
+
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Serviço</th>
+                <th>Data</th>
+                <th>Valor</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody id="historyList"></tbody>
+          </table>
+        </div>
+
+      </div>
+
+    </section>
+
+    <!-- FOTOS -->
+
+    <section id="photos" class="page">
+
+      <div class="card">
+        <h3>Minhas fotos</h3>
+        <p style="margin-bottom:15px">Fotos adicionadas às suas solicitações.</p>
+
+        <div class="field">
+          <input type="file" id="galleryPhotos" accept="image/*" multiple>
+        </div>
+
+        <div class="photo-preview" id="galleryPreview"></div>
+
+      </div>
+
+    </section>
+
+    <!-- PAGAMENTO -->
+
+    <section id="payment" class="page">
+
+      <div class="card">
+        <h3>Pagamento dos serviços</h3>
+
+        <div class="notice">
+          Esta tela é demonstrativa. Não realiza cobranças nem transações financeiras.
+        </div>
+
+        <div class="field">
+          <label>Forma de pagamento</label>
+          <select id="paymentMethod">
+            <option value="Pix">Pix</option>
+            <option value="Cartão de crédito">Cartão de crédito</option>
+            <option value="Cartão de débito">Cartão de débito</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Selecione um orçamento aceito</label>
+          <select id="paymentQuote">
+            <option value="">Nenhum orçamento disponível</option>
+          </select>
+        </div>
+
+        <button class="primary-btn" onclick="simulatePayment()">Continuar para pagamento</button>
+
+        <div id="paymentResult" style="margin-top:20px"></div>
+
+      </div>
+
+    </section>
+
+    <!-- AVALIAÇÕES -->
+
+    <section id="reviews" class="page">
+
+      <div class="card">
+        <h3>Avalie seu atendimento</h3>
+
+        <form id="reviewForm">
+
+          <div class="field">
+            <label>Nome do profissional</label>
+            <input type="text" id="professionalName" placeholder="Nome do profissional" required>
+          </div>
+
+          <div class="field">
+            <label>Nota</label>
+            <div class="stars" id="stars">
+              <span data-value="1">★</span>
+              <span data-value="2">★</span>
+              <span data-value="3">★</span>
+              <span data-value="4">★</span>
+              <span data-value="5">★</span>
+            </div>
+          </div>
+
+          <div class="field">
+            <label>Comentário</label>
+            <textarea id="reviewComment" rows="4" placeholder="Conte como foi sua experiência"></textarea>
+          </div>
+
+          <button class="primary-btn">Enviar avaliação</button>
+
+        </form>
+
+        <div id="reviewList" style="margin-top:20px"></div>
+
+      </div>
+
+    </section>
+
+    <!-- PERFIL -->
+
+    <section id="profile" class="page">
+
+      <div class="card">
+        <h3>Meus dados pessoais</h3>
+
+        <form id="profileForm">
+
+          <div class="field">
+            <label>Nome completo</label>
+            <input id="profileName" required>
+          </div>
+
+          <div class="field">
+            <label>CPF</label>
+            <input id="profileCpf">
+          </div>
+
+          <div class="field">
+            <label>Telefone</label>
+            <input id="profilePhone">
+          </div>
+
+          <div class="field">
+            <label>E-mail</label>
+            <input id="profileEmail" type="email" required>
+          </div>
+
+          <button class="primary-btn">Salvar alterações</button>
+
+        </form>
+      </div>
+
+    </section>
+
+  </main>
+
+</div>
+
+<button class="whatsapp" onclick="openWhatsApp()" title="Falar pelo WhatsApp">☏</button>
+
+<script>
+
+/* DADOS DEMONSTRATIVOS */
+
+const STORAGE_KEY = "donaFaxinaClienteDemo";
+const SESSION_KEY = "donaFaxinaClienteSessao";
+
+let currentUser = null;
+let selectedStars = 0;
+let currentEstimate = 0;
+
+function getDatabase() {
+  return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{"users":[],"requests":[],"reviews":[]}');
+}
+
+function saveDatabase(db) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(db));
+}
+
+/* ACESSO */
+
+function showAuth(type) {
+
+  document.getElementById("loginForm").classList.toggle("hidden", type !== "login");
+  document.getElementById("registerForm").classList.toggle("hidden", type !== "register");
+  document.getElementById("recoverForm").classList.toggle("hidden", type !== "recover");
+
+  document.getElementById("loginTab").classList.toggle("active", type === "login");
+  document.getElementById("registerTab").classList.toggle("active", type === "register");
+
+}
+
+document.getElementById("loginForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+  const password = document.getElementById("loginPassword").value;
+
+  const db = getDatabase();
+
+  const user = db.users.find(u => u.email === email && u.password === password);
+
+  if (!user) {
+    alert("E-mail ou senha incorretos.");
+    return;
+  }
+
+  currentUser = user;
+  sessionStorage.setItem(SESSION_KEY, email);
+
+  openDashboard();
+
+});
+
+document.getElementById("registerForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const db = getDatabase();
+
+  const email = document.getElementById("regEmail").value.trim().toLowerCase();
+
+  if (db.users.some(u => u.email === email)) {
+    alert("Este e-mail já está cadastrado.");
+    return;
+  }
+
+  const user = {
+    name: document.getElementById("regName").value,
+    cpf: document.getElementById("regCpf").value,
+    phone: document.getElementById("regPhone").value,
+    email,
+    password: document.getElementById("regPassword").value
+  };
+
+  db.users.push(user);
+  saveDatabase(db);
+
+  alert("Cadastro realizado! Agora faça seu login.");
+
+  document.getElementById("loginEmail").value = email;
+  showAuth("login");
+
+});
+
+document.getElementById("recoverForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const email = document.getElementById("recoverEmail").value.trim().toLowerCase();
+  const db = getDatabase();
+
+  const user = db.users.find(u => u.email === email);
+
+  if (!user) {
+    alert("E-mail não encontrado.");
+    return;
+  }
+
+  alert("Esta demonstração não envia e-mails. A recuperação segura será implementada na integração com o servidor.");
+
+});
+
+/* PAINEL */
+
+function openDashboard() {
+
+  document.getElementById("authScreen").classList.add("hidden");
+  document.getElementById("app").classList.remove("hidden");
+
+  document.getElementById("customerName").textContent = currentUser.name;
+  document.getElementById("welcomeName").textContent = currentUser.name.split(" ")[0];
+  document.getElementById("avatar").textContent = currentUser.name.charAt(0).toUpperCase();
+
+  loadProfile();
+  refreshDashboard();
+
+}
+
+function logout() {
+
+  sessionStorage.removeItem(SESSION_KEY);
+  currentUser = null;
+
+  document.getElementById("app").classList.add("hidden");
+  document.getElementById("authScreen").classList.remove("hidden");
+
+  showAuth("login");
+
+}
+
+function navigate(page, button) {
+
+  document.querySelectorAll(".page").forEach(p => p.classList.remove("active"));
+
+  document.getElementById(page).classList.add("active");
+
+  document.querySelectorAll(".menu-btn").forEach(b => b.classList.remove("active"));
+
+  if (button) button.classList.add("active");
+
+  const titles = {
+    home: "Início",
+    request: "Solicitar serviço",
+    quotes: "Meus orçamentos",
+    history: "Histórico",
+    photos: "Minhas fotos",
+    payment: "Pagamentos",
+    reviews: "Avaliações",
+    profile: "Meu cadastro"
+  };
+
+  document.getElementById("pageTitle").textContent = titles[page];
+
+  refreshDashboard();
+
+}
+
+/* SOLICITAÇÕES E ORÇAMENTO */
+
+function calculateEstimate() {
+
+  const base = Number(document.getElementById("propertySize").value);
+
+  if (!base) {
+    alert("Selecione o tamanho do imóvel.");
+    return;
+  }
+
+  let extras = 0;
+
+  document.querySelectorAll(".extra:checked").forEach(item => {
+    extras += Number(item.value);
+  });
+
+  const type = document.getElementById("serviceType").value;
+
+  let multiplier = 1;
+
+  if (type === "Limpeza pesada") multiplier = 1.4;
+  if (type === "Limpeza pós-obra") multiplier = 1.8;
+  if (type === "Limpeza comercial") multiplier = 1.3;
+  if (type === "Limpeza de mudança") multiplier = 1.5;
+
+  currentEstimate = Math.round((base + extras) * multiplier);
+
+  document.getElementById("estimate").textContent =
+    currentEstimate.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL"
+    });
+
+}
+
+document.getElementById("requestPhotos").addEventListener("change", function() {
+
+  previewFiles(this.files, "requestPreview");
+
+});
+
+document.getElementById("galleryPhotos").addEventListener("change", function() {
+
+  previewFiles(this.files, "galleryPreview");
+
+});
+
+function previewFiles(files, target) {
+
+  const container = document.getElementById(target);
+  container.innerHTML = "";
+
+  Array.from(files).slice(0, 10).forEach(file => {
+
+    if (!file.type.startsWith("image/")) return;
+
+    const reader = new FileReader();
+
+    reader.onload = function() {
+
+      const img = document.createElement("img");
+      img.src = reader.result;
+      img.alt = "Foto enviada pelo cliente";
+
+      container.appendChild(img);
+
+    };
+
+    reader.readAsDataURL(file);
+
+  });
+
+}
+
+document.getElementById("requestForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  if (currentEstimate <= 0) {
+    calculateEstimate();
+
+    if (currentEstimate <= 0) return;
+  }
+
+  const db = getDatabase();
+
+  const request = {
+
+    id: Date.now(),
+
+    email: currentUser.email,
+
+    service: document.getElementById("serviceType").value,
+
+    size: document.getElementById("propertySize").value,
+
+    date: document.getElementById("serviceDate").value,
+
+    time: document.getElementById("serviceTime").value,
+
+    duration: document.getElementById("duration").value,
+
+    address: document.getElementById("address").value,
+
+    neighborhood: document.getElementById("neighborhood").value,
+
+    city: document.getElementById("city").value,
+
+    description: document.getElementById("description").value,
+
+    estimate: currentEstimate,
+
+    status: "Aguardando orçamento",
+
+    quoteStatus: "Pendente",
+
+    paymentStatus: "Pendente"
+
+  };
+
+  db.requests.push(request);
+  saveDatabase(db);
+
+  alert("Solicitação registrada com sucesso!");
+
+  this.reset();
+
+  currentEstimate = 0;
+  document.getElementById("estimate").textContent = "R$ 0,00";
+  document.getElementById("requestPreview").innerHTML = "";
+
+  refreshDashboard();
+  navigate("history");
+
+});
+
+/* ORÇAMENTOS */
+
+function renderQuotes(db) {
+
+  const container = document.getElementById("quotesList");
+
+  const requests = db.requests.filter(r => r.email === currentUser.email);
+
+  if (!requests.length) {
+    container.innerHTML = '<div class="empty">Você ainda não possui orçamentos.</div>';
+    return;
+  }
+
+  container.innerHTML = "";
+
+  requests.forEach(request => {
+
+    const item = document.createElement("div");
+    item.className = "card";
+
+    item.innerHTML = `
+      <h3>${escapeHTML(request.service)}</h3>
+
+      <p>Data solicitada: ${escapeHTML(request.date)}</p>
+
+      <p>Estimativa: <strong>${formatMoney(request.estimate)}</strong></p>
+
+      <p style="margin:12px 0">
+        <span class="badge orange">${escapeHTML(request.quoteStatus)}</span>
+      </p>
+
+      ${request.quote !== undefined ? `
+        <p>Proposta do profissional: <strong>${formatMoney(request.quote)}</strong></p>
+        <button class="primary-btn" onclick="acceptQuote(${request.id})">Aceitar orçamento</button>
+      ` : `
+        <p style="font-size:13px;color:#718096">Aguardando proposta real do profissional.</p>
+      `}
+
+    `;
+
+    container.appendChild(item);
+
+  });
+
+}
+
+function acceptQuote(id) {
+
+  const db = getDatabase();
+
+  const request = db.requests.find(r => r.id === id && r.email === currentUser.email);
+
+  if (!request || request.quote === undefined) return;
+
+  if (!confirm("Deseja aceitar este orçamento?")) return;
+
+  request.quoteStatus = "Aceito";
+  request.status = "Orçamento aceito";
+
+  saveDatabase(db);
+  refreshDashboard();
+
+  alert("Orçamento aceito na demonstração!");
+
+}
+
+/* HISTÓRICO */
+
+function renderHistory(db) {
+
+  const container = document.getElementById("historyList");
+
+  const requests = db.requests.filter(r => r.email === currentUser.email);
+
+  container.innerHTML = "";
+
+  requests.forEach(r => {
+
+    const tr = document.createElement("tr");
+
+    tr.innerHTML = `
+      <td>${escapeHTML(r.service)}</td>
+      <td>${escapeHTML(r.date)}</td>
+      <td>${formatMoney(r.quote ?? r.estimate)}</td>
+      <td><span class="badge">${escapeHTML(r.status)}</span></td>
+    `;
+
+    container.appendChild(tr);
+
+  });
+
+  if (!requests.length) {
+    container.innerHTML = '<tr><td colspan="4">Nenhum serviço encontrado.</td></tr>';
+  }
+
+}
+
+/* PAGAMENTO */
+
+function renderPaymentOptions(db) {
+
+  const select = document.getElementById("paymentQuote");
+
+  const accepted = db.requests.filter(r =>
+    r.email === currentUser.email &&
+    r.quoteStatus === "Aceito"
+  );
+
+  select.innerHTML = "";
+
+  if (!accepted.length) {
+    select.innerHTML = '<option value="">Nenhum orçamento aceito</option>';
+    return;
+  }
+
+  accepted.forEach(r => {
+
+    const option = document.createElement("option");
+
+    option.value = r.id;
+    option.textContent = r.service + " - " + formatMoney(r.quote ?? r.estimate);
+
+    select.appendChild(option);
+
+  });
+
+}
+
+function simulatePayment() {
+
+  const id = Number(document.getElementById("paymentQuote").value);
+
+  if (!id) {
+    alert("Não existe orçamento aceito para pagamento.");
+    return;
+  }
+
+  const db = getDatabase();
+
+  const request = db.requests.find(r =>
+    r.id === id &&
+    r.email === currentUser.email &&
+    r.quoteStatus === "Aceito"
+  );
+
+  if (!request) return;
+
+  document.getElementById("paymentResult").innerHTML = `
+    <div class="notice">
+      <strong>Pagamento demonstrativo</strong><br><br>
+      Serviço: ${escapeHTML(request.service)}<br>
+      Valor: ${formatMoney(request.quote ?? request.estimate)}<br>
+      Forma escolhida: ${escapeHTML(document.getElementById("paymentMethod").value)}
+      <br><br>
+      Nenhuma cobrança foi realizada.
+    </div>
+  `;
+
+}
+
+/* AVALIAÇÕES */
+
+document.querySelectorAll("#stars span").forEach(star => {
+
+  star.addEventListener("click", function() {
+
+    selectedStars = Number(this.dataset.value);
+
+    document.querySelectorAll("#stars span").forEach(s => {
+
+      s.classList.toggle("selected", Number(s.dataset.value) <= selectedStars);
+
+    });
+
+  });
+
+});
+
+document.getElementById("reviewForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  if (!selectedStars) {
+    alert("Escolha uma nota.");
+    return;
+  }
+
+  const db = getDatabase();
+
+  db.reviews.push({
+
+    email: currentUser.email,
+
+    professional: document.getElementById("professionalName").value,
+
+    stars: selectedStars,
+
+    comment: document.getElementById("reviewComment").value,
+
+    date: new Date().toLocaleDateString("pt-BR")
+
+  });
+
+  saveDatabase(db);
+
+  alert("Avaliação registrada na demonstração!");
+
+  this.reset();
+
+  selectedStars = 0;
+
+  document.querySelectorAll("#stars span").forEach(s => s.classList.remove("selected"));
+
+  renderReviews(db);
+
+});
+
+function renderReviews(db) {
+
+  const container = document.getElementById("reviewList");
+
+  const reviews = db.reviews.filter(r => r.email === currentUser.email);
+
+  container.innerHTML = "";
+
+  reviews.forEach(r => {
+
+    const div = document.createElement("div");
+    div.className = "card";
+
+    div.innerHTML = `
+      <strong>${escapeHTML(r.professional)}</strong>
+      <p style="color:#FE9402;margin:8px 0">${"★".repeat(r.stars)}</p>
+      <p>${escapeHTML(r.comment)}</p>
+      <small>${escapeHTML(r.date)}</small>
+    `;
+
+    container.appendChild(div);
+
+  });
+
+}
+
+/* PERFIL */
+
+function loadProfile() {
+
+  document.getElementById("profileName").value = currentUser.name || "";
+  document.getElementById("profileCpf").value = currentUser.cpf || "";
+  document.getElementById("profilePhone").value = currentUser.phone || "";
+  document.getElementById("profileEmail").value = currentUser.email || "";
+
+}
+
+document.getElementById("profileForm").addEventListener("submit", function(e) {
+
+  e.preventDefault();
+
+  const db = getDatabase();
+
+  const user = db.users.find(u => u.email === currentUser.email);
+
+  if (!user) return;
+
+  const newEmail = document.getElementById("profileEmail").value.trim().toLowerCase();
+
+  if (db.users.some(u => u.email === newEmail && u !== user)) {
+    alert("Este e-mail já pertence a outra conta.");
+    return;
+  }
+
+  const oldEmail = user.email;
+
+  user.name = document.getElementById("profileName").value;
+  user.cpf = document.getElementById("profileCpf").value;
+  user.phone = document.getElementById("profilePhone").value;
+  user.email = newEmail;
+
+  db.requests.forEach(r => {
+    if (r.email === oldEmail) r.email = newEmail;
+  });
+
+  db.reviews.forEach(r => {
+    if (r.email === oldEmail) r.email = newEmail;
+  });
+
+  currentUser = user;
+
+  saveDatabase(db);
+
+  sessionStorage.setItem(SESSION_KEY, newEmail);
+
+  openDashboard();
+
+  alert("Cadastro atualizado!");
+
+});
+
+/* PAINEL E ATUALIZAÇÃO */
+
+function refreshDashboard() {
+
+  if (!currentUser) return;
+
+  const db = getDatabase();
+
+  const requests = db.requests.filter(r => r.email === currentUser.email);
+
+  document.getElementById("totalRequests").textContent = requests.length;
+
+  document.getElementById("totalQuotes").textContent =
+    requests.filter(r => r.quote !== undefined).length;
+
+  document.getElementById("totalHistory").textContent =
+    requests.filter(r => r.status === "Concluído").length;
+
+  const recent = document.getElementById("recentRequests");
+
+  if (!requests.length) {
+
+    recent.innerHTML = "Nenhuma solicitação realizada.";
+
+  } else {
+
+    recent.innerHTML = "";
+
+    requests.slice(-3).reverse().forEach(r => {
+
+      const p = document.createElement("p");
+
+      p.style.padding = "10px 0";
+      p.textContent = r.service + " - " + r.status;
+
+      recent.appendChild(p);
+
+    });
+
+  }
+
+  renderQuotes(db);
+  renderHistory(db);
+  renderPaymentOptions(db);
+  renderReviews(db);
+
+}
+
+/* WHATSAPP */
+
+function openWhatsApp() {
+
+  const phone = "5538999999999";
+
+  const message = encodeURIComponent("Olá! Preciso de atendimento da Dona Faxina.");
+
+  window.open("https://wa.me/" + phone + "?text=" + message, "_blank");
+
+}
+
+/* SEGURANÇA DE EXIBIÇÃO */
+
+function escapeHTML(value) {
+
+  return String(value ?? "").replace(/[&<>"']/g, char => ({
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#39;"
+  })[char]);
+
+}
+
+function formatMoney(value) {
+
+  return Number(value || 0).toLocaleString("pt-BR", {
+    style: "currency",
+    currency: "BRL"
+  });
+
+}
+
+/* INICIALIZAÇÃO */
+
+const savedEmail = sessionStorage.getItem(SESSION_KEY);
+
+if (savedEmail) {
+
+  const db = getDatabase();
+
+  currentUser = db.users.find(u => u.email === savedEmail) || null;
+
+  if (currentUser) {
+    openDashboard();
+  } else {
+    sessionStorage.removeItem(SESSION_KEY);
+  }
+
+}
+
+</script>
+
+</body>
+</html>
